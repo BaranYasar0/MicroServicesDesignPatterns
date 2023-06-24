@@ -2,6 +2,7 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Shared;
+using Stock.API.Consurmers;
 using Stock.API.Models;
 
 
@@ -16,13 +17,16 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(x =>
 {
-   
+    x.AddConsumer<OrderCreatedEventConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host(builder.Configuration.GetConnectionString("RabbitMQ"));
 
-
+        cfg.ReceiveEndpoint(RabbitMqSettings.StockOrderCreatedEventQueueName, e =>
+        {
+            e.ConfigureConsumer<OrderCreatedEventConsumer>(context);
+        });
        
     });
 

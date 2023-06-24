@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.Interfaces;
 
 namespace Shared
 {
-    public class StockNotReservedEvent
+    public class StockNotReservedEvent:IStockNotReservedEvent
     {
-        public int OrderId { get; set; }
-        public string Message { get; set; }
+        public StockNotReservedEvent(Guid correlationId)
+        {
+            CorrelationId = correlationId;
+        }
+
+        public Guid CorrelationId { get; }
+        public string Reason { get; set; }
     }
 }
