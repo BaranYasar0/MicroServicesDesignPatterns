@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared.Interfaces;
 
-namespace Shared
+namespace Shared.Events
 {
-    public class OrderCreatedEvent:IOrderCreatedEvent
+    public class OrderCreatedEvent : IOrderCreatedEvent
     {
         public OrderCreatedEvent(Guid correlationId)
         {
